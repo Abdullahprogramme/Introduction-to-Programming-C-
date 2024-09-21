@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <iomanip>
 #include <vector>
+#include <cmath>
 #include "trie.cpp"
 #include "main.hpp"
 
@@ -153,13 +154,13 @@ int main() {
         
         // Summary of valid words in each category
         cout << termcolor::bold << termcolor::cyan << "Summary of valid words:" << termcolor::reset << endl;
-        cout << setw(15) << left << "Category" << setw(10) << right << "Count" << endl;
-        cout << setw(15) << left << "2-letter words:" << setw(10) << right << validWords2.size() << endl;
-        cout << setw(15) << left << "3-letter words:" << setw(10) << right << validWords3.size() << endl;
-        cout << setw(15) << left << "4-letter words:" << setw(10) << right << validWords4.size() << endl;
-        cout << setw(15) << left << "5-letter words:" << setw(10) << right << validWords5.size() << endl;
-        cout << setw(15) << left << "6-letter words:" << setw(10) << right << validWords6.size() << endl;
-        cout << setw(15) << left << "7-letter words:" << setw(10) << right << validWords7.size() << endl;
+        cout << termcolor::bold << termcolor::magenta << setw(15) << left << "Category" << setw(10) << right << "Total" << setw(10) << right << "Unique" << setw(10) << right << "Valid" << setw(10) << right << "Invalid" << endl;
+        cout << termcolor::red << setw(15) << left << "2-letter words:" << setw(10) << right << pow(7, 2) << setw(10) << right << words2.size() << setw(10) << right << validWords2.size() << setw(10) << right << (words2.size() - validWords2.size()) << endl;
+        cout << termcolor::red << setw(15) << left << "3-letter words:" << setw(10) << right << pow(7, 3) << setw(10) << right << words3.size() << setw(10) << right << validWords3.size() << setw(10) << right << (words3.size() - validWords3.size()) << endl;
+        cout << termcolor::red << setw(15) << left << "4-letter words:" << setw(10) << right << pow(7, 4) << setw(10) << right << words4.size() << setw(10) << right << validWords4.size() << setw(10) << right << (words4.size() - validWords4.size()) << endl;
+        cout << termcolor::red << setw(15) << left << "5-letter words:" << setw(10) << right << pow(7, 5) << setw(10) << right << words5.size() << setw(10) << right << validWords5.size() << setw(10) << right << (words5.size() - validWords5.size()) << endl;
+        cout << termcolor::red << setw(15) << left << "6-letter words:" << setw(10) << right << pow(7, 6) << setw(10) << right << words6.size() << setw(10) << right << validWords6.size() << setw(10) << right << (words6.size() - validWords6.size()) << endl;
+        cout << termcolor::red << setw(15) << left << "7-letter words:" << setw(10) << right << pow(7, 7) << setw(10) << right << words7.size() << setw(10) << right << validWords7.size() << setw(10) << right << (words7.size() - validWords7.size()) << endl;
 
         // Ask user if they want to continue
         cout << termcolor::bold << termcolor::cyan << "Do you want to continue? (y/n)" << termcolor::reset << endl;
