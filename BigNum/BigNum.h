@@ -250,6 +250,8 @@ public:
         for (size_t i = start; i < inputStr.size(); ++i) {
             if (isdigit(inputStr[i])) {
                 num.push_back(inputStr[i]);
+            } else if (inputStr[i] == ',') {
+                continue;
             } else {
                 throw invalid_argument("Invalid character in number string");
             }
