@@ -5,44 +5,53 @@
 
 using namespace std;
 
-int f1(int* ptr) {
-    cout << "f1" << endl;
-    // *ptr = 0;
-    return 0;
-}
-
-int f2(int* const ptr) {
-    cout << "f2" << endl;
-    // ptr = nullptr; // Error: assignment of read-only parameter 'ptr'
-    *ptr = 0;
-    return 0;
-}
-
-int f3(const int* ptr) {
-    cout << "f3" << endl;
-    // *ptr = 0; // Error: assignment of read-only location '* ptr'
-    // ptr = nullptr; // Error: assignment of read-only parameter 'ptr'
-    return 0;
-}
-
-int f4(const int* const ptr) {
-    cout << "f4" << endl;
-    // ptr = nullptr; // Error: assignment of read-only parameter 'ptr'
-    // *ptr = 0; // Error: assignment of read-only location '* ptr'
-    return 0;
-}
+void nonconst_pointer_nonconst_data(int* ptr);
+void const_pointer_nonconst_data(int const* ptr);
+void nonconst_pointer_const_data(int* const ptr);
+void const_pointer_const_data(int const* const ptr);
 
 int main() {
     int x = 10;
-    int* ptr = &x;
-    const int* ptr2 = &x;
-    int* const ptr3 = &x;
-    const int* const ptr4 = &x;
 
-    f1(ptr); // non-const pointer to non-const data
-    f2(ptr3); // const pointer to non-const data
-    f3(ptr2); // non-const pointer to const data
-    f4(ptr4); // const pointer to const data
+    // creating pointers
+    int* ptr1 = &x;
+    int const* ptr2 = &x;
+    int* const ptr3 = &x;
+    int const* const ptr4 = &x;
+
+    // calling functions
+    nonconst_pointer_nonconst_data(ptr1);
+    const_pointer_nonconst_data(ptr2);
+    nonconst_pointer_const_data(ptr3);
+    const_pointer_const_data(ptr4);
 
     return 0;
+}
+
+void nonconst_pointer_nonconst_data(int* ptr) {
+    *ptr = 20; // can change the data
+    int y = 20;
+    ptr = &y; // can change the pointer to point to another memory location
+    cout << "nonconst_pointer_nonconst_data: " << *ptr << endl; // can read the data
+}
+
+void const_pointer_nonconst_data(int const* ptr) {
+    // *ptr = 20; // cannot change the data
+    int y = 20;
+    ptr = &y; // can change the pointer to point to another memory location
+    cout << "const_pointer_nonconst_data: " << *ptr << endl; // can read the data
+}
+
+void nonconst_pointer_const_data(int* const ptr) {
+    *ptr = 20; // can change the data
+    // int y = 20;
+    // ptr = &y; // cannot change the pointer to point to another memory location
+    cout << "nonconst_pointer_const_data: " << *ptr << endl; // can read the data
+}
+
+void const_pointer_const_data(int const* const ptr) {
+    // *ptr = 20; // cannot change the data
+    // int y = 20;
+    // ptr = &y; // cannot change the pointer to point to another memory location
+    cout << "const_pointer_const_data: " << *ptr << endl; // can read the data
 }
