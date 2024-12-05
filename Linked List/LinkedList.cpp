@@ -21,5 +21,9 @@ int main(){
 
     print(&list);
 
+    add_first(&list, 0);
+
+    print(&list);
+
     return 0;
 }
