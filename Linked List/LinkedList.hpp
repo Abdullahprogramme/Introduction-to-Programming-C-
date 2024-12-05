@@ -43,6 +43,20 @@ void add_first(LinkedList* list, int data){
     list->size++;
 }
 
+void add_last(LinkedList* list, int data){
+    LinkedListNode* node = new LinkedListNode;
+    node->data = data;
+    node->next = NULL;
+    if(list->tail == NULL){
+        list->head = node;
+        list->tail = node;
+    }else{
+        list->tail->next = node;
+        list->tail = node;
+    }
+    list->size++;
+}
+
 void delete_last(LinkedList* list){
     if(list->head == NULL){
         return;
