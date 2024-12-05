@@ -25,5 +25,9 @@ int main(){
 
     print(&list);
 
+    add_last(&list, 6);
+
+    print(&list);
+
     return 0;
 }
