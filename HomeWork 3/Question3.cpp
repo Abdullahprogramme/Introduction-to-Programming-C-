@@ -98,7 +98,8 @@ int main() {
 // Function definitions
 
 void AssignTask(Worker* workerPtr, int tskID) {
-    if (workerPtr->taskCount >= 3) {
+    // Check if worker has maximum tasks
+    if (workerPtr->taskCount >= MAX_TASKS_PER_WORKER) {
         cout << "Worker " << workerPtr->workerID << " already has maximum tasks." << endl;
         return;
     }
@@ -117,6 +118,7 @@ void AssignBulTasks(int ws, Worker workerList[], int ts, Task taskList[]) {
         int tasksToAssign = minTasksPerWorker + (extraTasks > 0 ? 1 : 0); // Adjust tasks based on extra tasks
         extraTasks = (extraTasks > 0) ? extraTasks - 1 : 0;
 
+        // Assign tasks to worker where checking if worker has maximum tasks and if there are tasks left
         for (int j = 0; j < tasksToAssign && taskIndex < ts && MAX_TASKS_PER_WORKER > workerList[i].taskCount; j++) {
             workerList[i].tasks[workerList[i].taskCount] = taskList[taskIndex];
             workerList[i].taskCount++;
@@ -157,13 +159,13 @@ void LogTaskTime(Worker* workerPtr, Task* tskPtr, int time) {
     }
 }
 
-void PrintTaskTimeLog(Task tsk) {
+void PrintTaskTimeLog(Task tsk) { // Print task details
     cout << "Task " << tsk.taskID << ": Level " << tsk.level << endl;
     cout << "- Estimated Time: " << tsk.estTime << " hours" << endl;
     cout << "- Logged Time: " << tsk.loggedTime << " hours" << endl;
 }
 
-void PrintWorkerTaskList(Worker worker) {
+void PrintWorkerTaskList(Worker worker) { // Print worker's task list
     cout << "Worker " << worker.workerID << " Task List:" << endl;
     for (int i = 0; i < worker.taskCount; i++) {
         cout << "- Task " << worker.tasks[i].taskID << ": Level " << worker.tasks[i].level
@@ -173,10 +175,14 @@ void PrintWorkerTaskList(Worker worker) {
 
 void PrintWorkerTimeDetails(Worker worker) {
     cout << "Worker " << worker.workerID << " Summary:" << endl;
+
+    // calculate total time assigned
     int totalTimeAssigned = 0;
     for (int i = 0; i < worker.taskCount; i++) {
         totalTimeAssigned += worker.tasks[i].estTime;
     }
+
+    // print worker details
     cout << "- Total Time Assigned: " << totalTimeAssigned << " hours" << endl;
     cout << "- Total Logged Time: " << worker.totalLoggedTime << " hours" << endl;
     cout << "- Remaining Time: " << totalTimeAssigned - worker.totalLoggedTime << " hours" << endl;
@@ -184,6 +190,7 @@ void PrintWorkerTimeDetails(Worker worker) {
 
 void PrintWorkersInTxtFile(int ws, Worker workerList[], FILE* fptr) {
     for (int i = 0; i < ws; i++) {
+        // Print worker details in the file, using the C file I/O functions
         fprintf(fptr, "Worker %d:\n", workerList[i].workerID);
         for (int j = 0; j < workerList[i].taskCount; j++) {
             fprintf(fptr, "- Task %d: Level %d, Est. Time: %d hours, Logged Time: %d hours\n",
@@ -195,11 +202,11 @@ void PrintWorkersInTxtFile(int ws, Worker workerList[], FILE* fptr) {
 }
 
 Worker NewWorker() {
-    Worker worker = {0, 0, {}, 0};
+    Worker worker = {0, 0, {}, 0}; // Initialize worker with 0 values
     return worker;
 }
 
 Task NewTask() {
-    Task task = {0, 0, 0, 0};
+    Task task = {0, 0, 0, 0}; // Initialize task with 0 values
     return task;
 }
