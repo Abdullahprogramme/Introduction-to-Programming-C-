@@ -4,29 +4,26 @@
 int main(){
     LinkedList list;
     init(&list);
-    add(&list, 1);
-    add(&list, 2);
-    add(&list, 3);
-    add(&list, 4);
+
     add(&list, 5);
-
-    print(&list);
-
-    delete_last(&list);
-    delete_last(&list);
-
-    print(&list);
-
-    delete_some_value(&list, 2);
-
+    add(&list, 3);
+    add(&list, 8);
+    add(&list, 1);
     print(&list);
 
     add_first(&list, 0);
-
     print(&list);
 
-    add_last(&list, 6);
+    add_last(&list, 10);
+    print(&list);
 
+    delete_first(&list);
+    print(&list);
+
+    delete_last(&list);
+    print(&list);
+
+    delete_some_value(&list, 3);
     print(&list);
 
     return 0;
