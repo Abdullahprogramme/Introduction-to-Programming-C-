@@ -21,13 +21,26 @@ void init(LinkedList* list){
 void add(LinkedList* list, int data){
     LinkedListNode* node = new LinkedListNode;
     node->data = data;
-    node->next = NULL;
+    // adding in between nodes in order
     if(list->head == NULL){
+        node->next = NULL;
         list->head = node;
         list->tail = node;
     }else{
-        list->tail->next = node;
-        list->tail = node;
+        LinkedListNode* current = list->head;
+        if (current->data >= data) {
+            node->next = list->head;
+            list->head = node;
+        } else {
+            while(current->next != NULL && current->next->data < data){
+                current = current->next;
+            }
+            node->next = current->next;
+            current->next = node;
+            if(node->next == NULL){
+                list->tail = node;
+            }
+        }
     }
     list->size++;
 }
@@ -99,6 +112,16 @@ void delete_some_value(LinkedList* list, int value){
     current->next = current->next->next;
     delete temp;
 
+    list->size--;
+}
+
+void delete_first(LinkedList* list){
+    if(list->head == NULL){
+        return;
+    }
+    LinkedListNode* temp = list->head;
+    list->head = list->head->next;
+    delete temp;
     list->size--;
 }
 
